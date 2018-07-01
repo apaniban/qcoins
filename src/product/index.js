@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react';
 import styled from 'styled-components';
+
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
+import Loader from '../components/Loader';
 
 import web3 from '../ethereum/web3';
 import partner from '../ethereum/partner';
@@ -27,7 +29,8 @@ class Product extends PureComponent {
     this.setState({
       name,
       price: product[1],
-      account: accounts[0]
+      account: accounts[0],
+      loading: false
     });
 
   }
@@ -35,17 +38,24 @@ class Product extends PureComponent {
   handleConfirm = async (e) => {
     const {address, id} = this.props;
     const {account} = this.state;
-    const result = await partner(address).methods.redeem(id).send({
-      from: account
-    });
+    this.setState({loading: true});
+    try {
+      await partner(address).methods.redeem(id).send({
+        from: account
+      });
 
-    if (result) {
       history.push('/sent');
+    } catch (err) {
+      this.setState({loading: false});
     }
   }
 
   render() {
-    const {name, price} = this.state;
+    const {name, loading, price} = this.state;
+
+    if(loading) {
+      return <Layout><Loader /></Layout>;
+    }
 
     return (
       <Layout>

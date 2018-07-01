@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import {map} from 'ramda';
 
+import Loader from '../components/Loader';
 import Navigation from '../components/Navigation';
 import Layout from '../components/Layout';
 import partner from '../ethereum/partner';
@@ -11,6 +12,7 @@ class Partner extends PureComponent {
     super(props);
 
     this.state = {
+      loading: true,
       products: []
     };
   }
@@ -20,24 +22,29 @@ class Partner extends PureComponent {
     const numberOfProducts = await partner(address).methods.noOfProducts().call();
 
     Promise.all(map(getProductInfo(address), generateList()(numberOfProducts)))
-      .then(products => this.setState({products}))
+      .then(products => this.setState({products, loading: false}))
   }
 
   render() {
+    const {address} = this.props;
+    const {loading, products} = this.state;
+
+    if (loading) {
+      return <Layout><Loader /></Layout>;
+    }
+
     return (
       <Layout>
         <Navigation label='STORES' location='/' />
         <Content>
           {
-            this.state.products.map(
-              p => (
-                <Item>
-                  <span href={`${this.props.address}/products/${p.id}`}>{p.name}</span>
-                  <div>{p.price}</div>
-                  <Link href={`${this.props.address}/products/${p.id}`}>PAY</Link>
-                </Item>
-              )
-            )
+            map((p, key) => (
+              <Item key={key}>
+                <span href={`${address}/products/${p.id}`}>{p.name}</span>
+                <div>{p.price}</div>
+                <Link href={`${address}/products/${p.id}`}>PAY</Link>
+              </Item>
+            ), products)
           }
         </Content>
       </Layout>

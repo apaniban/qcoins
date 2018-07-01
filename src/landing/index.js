@@ -1,6 +1,8 @@
 import React, {PureComponent}  from 'react';
 import styled from 'styled-components';
 import {map} from 'ramda';
+
+import Loader from '../components/Loader';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 
@@ -12,6 +14,7 @@ class LandingPage extends PureComponent {
     super(props);
 
     this.state = {
+      loading: true,
       partners: []
     };
   }
@@ -20,23 +23,27 @@ class LandingPage extends PureComponent {
     const partnerAddresses = await loyalty.methods.getPartners().call();
 
     Promise.all(map(getPartnerInfo, partnerAddresses))
-      .then(partners => this.setState({partners}));
+      .then(partners => this.setState({partners, loading: false}));
   }
 
   render() {
+    const {loading, partners} = this.state;
+    const {address} = this.props;
+
+    if (loading) {
+      return <Layout><Loader/></Layout>;
+    }
+
     return (
       <Layout>
         <Navigation />
         <Content>
           {
-            this.state.partners.map(
-              partner => <li>
-                <a href={`/partners/${partner.address}`}>
-                {partner.name}
-                <div><i/></div>
-                </a>
+            map((partner, key) => (
+              <li key={key}>
+                <a href={`/partners/${partner.address}`}>{partner.name}<div><i/></div></a>
               </li>
-            )
+            ), partners)
           }
         </Content>
     </Layout>
