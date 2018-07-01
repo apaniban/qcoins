@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 
+import web3 from '../ethereum/web3';
 import partner from '../ethereum/partner';
 import history from '../history';
 
@@ -21,19 +22,22 @@ class Product extends PureComponent {
     const {address, id} = this.props;
     const name = await partner(address).methods.name().call();
     const product = await partner(address).methods.getProduct(id).call();
+    const accounts = await web3.eth.getAccounts();
 
     this.setState({
       name,
-      price: product[1]
+      price: product[1],
+      account: accounts[0]
     });
 
   }
 
   handleConfirm = async (e) => {
     const {address, id} = this.props;
-    console.log('ADDRESS', address);
-    console.log('ID', id);
-    const result = await partner(address).methods.redeem(id).call();
+    const {account} = this.state;
+    const result = await partner(address).methods.redeem(id).send({
+      from: account
+    });
 
     if (result) {
       history.push('/sent');
