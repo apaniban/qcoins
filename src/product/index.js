@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 
 import partner from '../ethereum/partner';
+import history from '../history';
 
 class Product extends PureComponent {
   constructor(props) {
@@ -15,6 +16,7 @@ class Product extends PureComponent {
       price: ''
     }
   }
+
   async componentDidMount() {
     const {address, id} = this.props;
     const name = await partner(address).methods.name().call();
@@ -27,6 +29,17 @@ class Product extends PureComponent {
 
   }
 
+  handleConfirm = async (e) => {
+    const {address, id} = this.props;
+    console.log('ADDRESS', address);
+    console.log('ID', id);
+    const result = await partner(address).methods.redeem(id).call();
+
+    if (result) {
+      history.push('/sent');
+    }
+  }
+
   render() {
     const {name, price} = this.state;
 
@@ -36,7 +49,7 @@ class Product extends PureComponent {
         <Content>
           <div>You are sending</div>
           <div>{price} QCoins to {name}</div>
-          <Button>Confirm payment</Button>
+          <Button onClick={this.handleConfirm}>Confirm payment</Button>
         </Content>
       </Layout>
     );

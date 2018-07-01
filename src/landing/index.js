@@ -4,7 +4,6 @@ import {map} from 'ramda';
 import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 
-import web3 from '../ethereum/web3';
 import loyalty from '../ethereum/qLoyalty';
 import partner from '../ethereum/partner';
 
@@ -18,7 +17,6 @@ class LandingPage extends PureComponent {
   }
 
   async componentDidMount(props) {
-    const accounts = await web3.eth.getAccounts();
     const partnerAddresses = await loyalty.methods.getPartners().call();
 
     Promise.all(map(getPartnerInfo, partnerAddresses))
