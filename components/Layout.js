@@ -4,16 +4,16 @@ import Header from './Header';
 import Label from './Label';
 
 const Layout = ({children}) =>
-  <Container>
+  <div>
     <Header/>
     <Content>
-      
+      {children}
     </Content>
     <Divider>
       <Label text={'Recent Activity'} />
       <Line />
     </Divider>
-  </Container>
+  </div>
 
 export default Layout;
 

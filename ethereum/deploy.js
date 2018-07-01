@@ -1,6 +1,7 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
-const compiledFactory = require('./build/CampaignFactory.json');
+
+const compiledFactory = require('./build/QLoyaltyFactory.json');
 
 const provider = new HDWalletProvider(
   'romance manage version grain finger pioneer double jar cotton demise monitor laundry',
@@ -17,8 +18,8 @@ const deploy = async () => {
   const result = await new web3.eth.Contract(
     JSON.parse(compiledFactory.interface)
   )
-    .deploy({ data: compiledFactory.bytecode })
-    .send({ gas: '1000000', from: accounts[0] });
+    .deploy({ data: compiledFactory.bytecode, arguments: [5000000] })
+    .send({ gas: '3000000', from: accounts[0] });
 
   console.log('Contract deployed to', result.options.address);
 };

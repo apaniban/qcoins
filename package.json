@@ -8,23 +8,27 @@
   },
   "scripts": {
     "dev": "node server.js",
-    "build": "next build"
+    "clean:install": "rm -rf node_modules && npm i",
+    "build": "next build",
+    "eth:compile": "node ./ethereum/compile.js",
+    "eth:deploy": "node ./ethereum/deploy.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "file-loader": "^1.1.11",
     "fs-extra": "^6.0.1",
-    "ganache-cli": "^6.1.4",
+    "ganache-cli": "^6.0.3",
     "next": "^6.1.0",
     "next-images": "^0.10.5",
     "next-routes": "^1.4.2",
+    "ramda": "^0.25.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "solc": "^0.4.24",
+    "solc": "^0.4.19",
     "styled-components": "^3.3.3",
-    "truffle-hdwallet-provider": "0.0.5",
     "url-loader": "^1.0.1",
-    "web3": "^1.0.0-beta.34"
+    "truffle-hdwallet-provider": "0.0.3",
+    "web3": "1.0.0-beta.26"
   }
 }
