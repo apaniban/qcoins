@@ -1,34 +1,24 @@
 {
-  "name": "qcoins",
-  "version": "1.0.0",
-  "description": "",
-  "main": "routes.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "dev": "node server.js",
-    "clean:install": "rm -rf node_modules && npm i",
-    "build": "next build",
-    "eth:compile": "node ./ethereum/compile.js",
-    "eth:deploy": "node ./ethereum/deploy.js"
-  },
-  "author": "",
-  "license": "ISC",
+  "name": "qcoins-2",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "file-loader": "^1.1.11",
     "fs-extra": "^6.0.1",
     "ganache-cli": "^6.0.3",
-    "next": "^6.1.0",
-    "next-images": "^0.10.5",
-    "next-routes": "^1.4.2",
     "ramda": "^0.25.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
     "solc": "^0.4.19",
     "styled-components": "^3.3.3",
-    "url-loader": "^1.0.1",
     "truffle-hdwallet-provider": "0.0.3",
     "web3": "1.0.0-beta.26"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
