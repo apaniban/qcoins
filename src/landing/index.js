@@ -31,7 +31,10 @@ class LandingPage extends PureComponent {
           {
             this.state.partners.map(
               partner => <li>
-                <a href={`/partners/${partner.address}`}>{partner.name}</a>
+                <a href={`/partners/${partner.address}`}>
+                {partner.name}
+                <div><i/></div>
+                </a>
               </li>
             )
           }
@@ -58,6 +61,8 @@ const Content = styled.ul`
   > li > a {
     color: white;
     text-decoration: none;
+    display: flex;
+    justify-content: space-between;
   }
 
   > li > a:visited {
@@ -67,6 +72,21 @@ const Content = styled.ul`
 
   > li {
     padding: 10px 0;
+  }
+
+  > li > a > div {
+    width: 10px;
+    height: 10px;
+  }
+
+  > li > a > div > i {
+    border: solid #ffffff;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 2px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
   }
 `
 
