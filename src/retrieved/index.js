@@ -7,7 +7,7 @@ class Retrieved extends PureComponent {
   render() {
     return (
       <Layout>
-        <Navigation />
+        <Navigation withCancel />
         <Content>Payment received</Content>
       </Layout>
     );

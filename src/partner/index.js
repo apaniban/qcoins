@@ -39,8 +39,8 @@ class Partner extends PureComponent {
         <Navigation withCancel />
         <Content>
           {
-            map((p, key) => (
-              <Item key={key}>
+            map((p) => (
+              <Item key={p.id}>
                 <span href={`${address}/products/${p.id}`}>{p.name}</span>
                 <div>{format(p.price)}</div>
                 <Link href={`${address}/products/${p.id}`}>PAY</Link>

@@ -38,8 +38,8 @@ class LandingPage extends PureComponent {
         <Navigation label='Stores nearby' />
         <Content>
           {
-            map((partner, key) => (
-              <li key={key}>
+            map((partner) => (
+              <li key={partner.address}>
                 <a href={`/partners/${partner.address}`}>{partner.name}<div><i/></div></a>
               </li>
             ), partners)

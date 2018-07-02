@@ -1,6 +1,17 @@
 import React, {PureComponent} from 'react'
 import styled from 'styled-components';
 
+/* Sorry */
+const activities = [{
+  vendor: 'Toby\'s Estate',
+  item: 'Hot Chocolate',
+  price: '- 499'
+}, {
+  vendor: 'Apple Sydney',
+  item: 'iPhone X 64B',
+  price: '- 20,000'
+}];
+
 class RecentActivities extends PureComponent {
 
   render() {
@@ -8,8 +19,17 @@ class RecentActivities extends PureComponent {
       <Container>
         <Header><span>Recent Activity</span><div/></Header>
         <Activities>
-          <li>Test</li>
-          <li>Test</li>
+          {
+            activities.map((activity, key) =>
+              <Item key={key}>
+                <Left>
+                  <div>{activity.vendor}</div>
+                  <div>{activity.item}</div>
+                </Left>
+                <Right>{activity.price}</Right>
+              </Item>
+            )
+          }
         </Activities>
       </Container>
     );
@@ -55,6 +75,30 @@ const Activities = styled.ul`
   > li {
     padding: 15px 0;
   }
+`;
+
+const Item = styled.li`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  align-items: center;
+`;
+
+const Left = styled.div`
+  > div:nth-child(1) {
+    padding-bottom: 5px;
+    font-size: 15px;
+    font-family: Ciutadella-Bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+`;
+
+const Right = styled.div`
+  justify-self: flex-end;
+  letter-spacing: 1px;
+  font-size: 15px;
+  font-weight: 500;
 `;
 
 export default RecentActivities;
