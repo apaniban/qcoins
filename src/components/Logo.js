@@ -6,7 +6,6 @@ const Logo = (props) => <StyledLogo src={logo} />
 
 const StyledLogo = styled.img`
   grid-column: 1 / span 1;
-  height: 90%;
 `
 
 export default Logo;

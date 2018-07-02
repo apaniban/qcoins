@@ -13,11 +13,13 @@ const animation = keyframes`
 
 const Wrapper = styled.div`
   position: relative;
+  height: 100px;
+  width: 170px;
 
   > span {
     position: absolute;
     display: block;
-    top: 0;
+    bottom: 0;
 
     height: 10px;
     width: 10px;
@@ -30,35 +32,42 @@ const Wrapper = styled.div`
   }
 
   > :nth-child(1) {
-    left: -20px;
+    left: 65px;
   }
 
   > :nth-child(2) {
-    left: 0;
+    left: 85px;
     animation-delay: 0.16s;
   }
 
   > :nth-child(3) {
-    left: 20px;
+    left: 105px;
     animation-delay: 0.32s;
   }
 `;
 
-const Loader = () => (
+const Loader = ({message}) => (
   <Container>
     <Wrapper>
       <span />
       <span />
       <span />
     </Wrapper>
+    {message && <p>{message}</p>}
   </Container>
 );
 
 const Container = styled.div`
-  height: 100%;
   display: grid;
   justify-content: center;
   align-items: center;
+
+  > p {
+    font-size: 17px;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+  }
 `;
 
 export default Loader;

@@ -8,7 +8,7 @@ class Retrieved extends PureComponent {
     return (
       <Layout>
         <Navigation />
-        <Content>Sent</Content>
+        <Content>Payment received</Content>
       </Layout>
     );
   }
@@ -18,7 +18,6 @@ const Content = styled.div`
   height: 80%;
   font-size: 20px;
   letter-spacing: 2px;
-  opacity: 0.8;
   display: grid;
   justify-content: center;
   align-items: center;

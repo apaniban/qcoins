@@ -9,9 +9,9 @@ const Label = ({text}) =>
 export default Label;
 
 const StyledLabel = styled.div`
-  height: 15px;
+  padding-bottom: 5px;
   opacity: 0.5;
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: white;
 `;

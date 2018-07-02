@@ -28,7 +28,6 @@ class LandingPage extends PureComponent {
 
   render() {
     const {loading, partners} = this.state;
-    const {address} = this.props;
 
     if (loading) {
       return <Layout><Loader/></Layout>;
@@ -36,7 +35,7 @@ class LandingPage extends PureComponent {
 
     return (
       <Layout>
-        <Navigation />
+        <Navigation label='Stores nearby' />
         <Content>
           {
             map((partner, key) => (

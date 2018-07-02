@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import Navigation from '../components/Navigation';
 import Loader from '../components/Loader';
 
+import {format} from '../utils/number';
 import web3 from '../ethereum/web3';
 import partner from '../ethereum/partner';
 import history from '../history';
@@ -30,7 +31,8 @@ class Product extends PureComponent {
       name,
       price: product[1],
       account: accounts[0],
-      loading: false
+      loading: false,
+      message: ''
     });
 
   }
@@ -38,7 +40,9 @@ class Product extends PureComponent {
   handleConfirm = async (e) => {
     const {address, id} = this.props;
     const {account} = this.state;
-    this.setState({loading: true});
+
+    this.setState({loading: true, message: 'Processing payment'});
+
     try {
       await partner(address).methods.redeem(id).send({
         from: account
@@ -46,23 +50,23 @@ class Product extends PureComponent {
 
       history.push('/sent');
     } catch (err) {
-      this.setState({loading: false});
+      this.setState({loading: false, message: ''});
     }
   }
 
   render() {
-    const {name, loading, price} = this.state;
+    const {name, loading, message, price} = this.state;
 
     if(loading) {
-      return <Layout><Loader /></Layout>;
+      return <Layout><Loader message={message}/></Layout>;
     }
 
     return (
       <Layout>
-        <Navigation />
+        <Navigation withCancel />
         <Content>
           <div>You are sending</div>
-          <div>{price} QCoins to {name}</div>
+          <div><strong>{format(price)}</strong> QCoins to <strong>{name.toUpperCase()}</strong></div>
           <Button onClick={this.handleConfirm}>Confirm payment</Button>
         </Content>
       </Layout>
@@ -75,11 +79,16 @@ const Content = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0.8px;
 
   > div {
     text-align: center;
-    opacity: 0.8;
     line-spacing: 1px;
+
+    > strong {
+      font-weight: 700;
+      opacity: 1;
+    }
   }
 `;
 
@@ -88,6 +97,8 @@ const Button = styled.button`
   color: white;
   text-transform: uppercase;
   font-size: 17px;
+  font-family: Ciutadella;
+  letter-spacing: 0.8px;
 
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 2.5px 7.5px 0 rgba(0, 0, 0, 0.07);

@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import Navigation from '../components/Navigation';
 import Layout from '../components/Layout';
 import partner from '../ethereum/partner';
+import {format} from '../utils/number';
 
 class Partner extends PureComponent {
   constructor(props) {
@@ -35,13 +36,13 @@ class Partner extends PureComponent {
 
     return (
       <Layout>
-        <Navigation label='STORES' location='/' />
+        <Navigation withCancel />
         <Content>
           {
             map((p, key) => (
               <Item key={key}>
                 <span href={`${address}/products/${p.id}`}>{p.name}</span>
-                <div>{p.price}</div>
+                <div>{format(p.price)}</div>
                 <Link href={`${address}/products/${p.id}`}>PAY</Link>
               </Item>
             ), products)
@@ -108,6 +109,7 @@ const Link = styled.a`
   padding: 7px 5px;
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 2.5px 7.5px 0 rgba(0, 0, 0, 0.07);
+  font-family: Ciutadella-Bold;
 `
 
 export default Partner;
