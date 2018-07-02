@@ -7,7 +7,7 @@ import web3 from '../ethereum/web3';
 class Balance extends PureComponent {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       balance: 0
     };
@@ -17,14 +17,14 @@ class Balance extends PureComponent {
     const accounts = await web3.eth.getAccounts();
     const balance = await qCoins.methods.balanceOf(accounts[0]).call();
 
-    this.setState({balance});
+    this.setState({balance: Number(balance)});
   }
 
   render() {
     return (
       <Container>
         <Label text='Wallet Balance' />
-        <div>{this.state.balance}</div>
+        <div>{this.state.balance.toLocaleString()}</div>
       </Container>
     );
   }
